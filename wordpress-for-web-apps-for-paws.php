@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/pawsnewengland/wordpress-for-web-apps-for-paws/
  * GitHub Plugin URI: https://github.com/pawsnewengland/wordpress-for-web-apps-for-paws/
  * Description: Extends the <a href="https://github.com/cferdinandi/gmt-wordpress-for-web-apps">WordPress for Web Apps plugin</a>.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Chris Ferdinandi
  * Author URI: http://gomakethings.com
  * License: GPLv3
@@ -21,6 +21,9 @@ function wpwa_for_paws_restrict_cpt_access() {
 
 	// Validate that WP for Web Apps is installed
 	if ( !function_exists( 'wpwebapp_get_theme_options' ) ) return;
+
+	// Check if user is logged in already
+	if ( is_user_logged_in() ) return;
 
 	// Variables
 	global $post;
@@ -41,7 +44,7 @@ function wpwa_for_paws_restrict_cpt_access() {
 			exit;
 		}
 	} else {
-		if ( array_key_exists( $post_type, $options['post_types'] ) && $options['post_types'][$post_type] === 'on' && !is_user_logged_in() ) {
+		if ( array_key_exists( $post_type, $options['post_types'] ) && $options['post_types'][$post_type] === 'on' ) {
 			wp_safe_redirect( wpwebapp_get_redirect_url( $wpwa_options['login_redirect'] ), 302 );
 			exit;
 		}
