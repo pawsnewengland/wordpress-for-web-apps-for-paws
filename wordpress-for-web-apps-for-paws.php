@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/pawsnewengland/wordpress-for-web-apps-for-paws/
  * GitHub Plugin URI: https://github.com/pawsnewengland/wordpress-for-web-apps-for-paws/
  * Description: Extends the <a href="https://github.com/cferdinandi/gmt-wordpress-for-web-apps">WordPress for Web Apps plugin</a>.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Chris Ferdinandi
  * Author URI: http://gomakethings.com
  * License: GPLv3
@@ -28,10 +28,23 @@ function wpwa_for_paws_restrict_cpt_access() {
 	$options = wpwa_for_paws_get_theme_options();
 	$post_type = get_post_type( $post->id );
 
+	if ( empty( $post_type ) )
+
 	// If user is logged out and content is restricted, redirect
-	if ( array_key_exists( $post_type, $options['post_types'] ) && $options['post_types'][$post_type] === 'on' && !is_user_logged_in() ) {
-		wp_safe_redirect( wpwebapp_get_redirect_url( $wpwa_options['login_redirect'] ), 302 );
-		exit;
+	if ( empty( $post_type ) ) {
+		$post_types = array();
+		foreach( $options['post_types'] as $key => $value ) {
+			$post_types[] = $key;
+		}
+		if ( is_post_type_archive( $post_types ) ) {
+			wp_safe_redirect( wpwebapp_get_redirect_url( $wpwa_options['login_redirect'] ), 302 );
+			exit;
+		}
+	} else {
+		if ( array_key_exists( $post_type, $options['post_types'] ) && $options['post_types'][$post_type] === 'on' && !is_user_logged_in() ) {
+			wp_safe_redirect( wpwebapp_get_redirect_url( $wpwa_options['login_redirect'] ), 302 );
+			exit;
+		}
 	}
 
 }
