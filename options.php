@@ -26,7 +26,6 @@
 		$post_types = get_post_types(array(
 			'public' => true,
 		));
-		keel_print_a($options);
 
 		foreach ($post_types as $post_type) :
 		?>

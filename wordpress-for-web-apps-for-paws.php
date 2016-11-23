@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/pawsnewengland/wordpress-for-web-apps-for-paws/
  * GitHub Plugin URI: https://github.com/pawsnewengland/wordpress-for-web-apps-for-paws/
  * Description: Extends the <a href="https://github.com/cferdinandi/gmt-wordpress-for-web-apps">WordPress for Web Apps plugin</a>.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Chris Ferdinandi
  * Author URI: http://gomakethings.com
  * License: GPLv3
